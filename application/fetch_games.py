@@ -26,3 +26,9 @@ class FetchGames:
         if details:
             return details
         return None
+
+    async def get_game_news(self, appid):
+        news = await self.steam_api_service.fetch_game_news(appid)
+        if news:
+            return news
+        return None

@@ -12,6 +12,7 @@ async def main():
     print("2 - Search game by appid")
     print("3 - Search games by name")
     print("4 - Get detailed information about a game by appid")
+    print("5 - Get news about a game by appid")
 
     choice = input("Choose an option number: ")
 
@@ -45,14 +46,25 @@ async def main():
         if details:
             print(f"\nGame details:")
             print(f"Name: {details.get('name')}")
-            print(f"Description: {details.get('short_description', 'No description available.')}")
+            print(f"Description: {details.get('detailed_description', 'No description available.')}")
             print(f"Price: {details.get('price_overview', {}).get('final_formatted', 'No price available.')}")
-            print(f"Header image: {details.get('header_image', 'No image available.')}")
         else:
             print("\nNo detailed information found for the given appid.")
 
-    else:
-        print("\nInvalid option.")
+
+    elif choice == "5":
+
+        appid = int(input("Enter the game appid to get news: "))
+        news = await fetch_games_use_case.get_game_news(appid)
+        if news:
+            print(f"\nNews for game {appid}:")
+            for item in news[:5]:  # last 5 news
+                print(f"Title: {item.get('title', 'No title')}")
+                print(f"Contents: {item.get('contents', 'No content')}")
+                print("----------------------------")
+        else:
+
+            print("\nNo news found for the given appid.")
 
 
 if __name__ == "__main__":

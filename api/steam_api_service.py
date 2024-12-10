@@ -3,7 +3,7 @@ import aiohttp
 class SteamAPIService:
     BASE_URL = "http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json"
     DETAILS_URL = "https://store.steampowered.com/api/appdetails?appids={appid}"
-
+    NEWS_URL = "https://api.steampowered.com/ISteamNews/GetNewsForApp/v0002/?appid={appid}"
     async def fetch_game_list(self):
         async with aiohttp.ClientSession() as session:
             async with session.get(self.BASE_URL) as response:
@@ -25,3 +25,14 @@ class SteamAPIService:
                 else:
                     print(f"Error while downloading game details: {response.status}")
                     return None
+
+    async def fetch_game_news(self, appid):
+        async with aiohttp.ClientSession() as session:
+            url = self.NEWS_URL.format(appid=appid)
+            async with session.get(url) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    return data.get("appnews", {}).get("newsitems", [])
+                else:
+                    print(f"Error fetching news: {response.status}")
+                    return []

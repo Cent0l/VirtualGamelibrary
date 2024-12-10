@@ -1,4 +1,3 @@
-# presentation/main.py
 import asyncio
 from application.fetch_games import FetchGames
 from api.steam_api_service import SteamAPIService
@@ -12,13 +11,14 @@ async def main():
     print("1 - Show all available games")
     print("2 - Search game by appid")
     print("3 - Search games by name")
+    print("4 - Get detailed information about a game by appid")
 
     choice = input("Choose an option number: ")
 
     if choice == "1":
         games = await fetch_games_use_case.execute()
         print("List of games:")
-        for game in games[:]:  #daj liczbe po : [:5] zeby ilosc wyswietlic
+        for game in games[:5]:  # Show first 5 games for example
             print(game)
 
     elif choice == "2":
@@ -38,6 +38,18 @@ async def main():
                 print(game)
         else:
             print("\nNo games found with the given name.")
+
+    elif choice == "4":
+        appid = int(input("Enter the game appid to get detailed information: "))
+        details = await fetch_games_use_case.get_game_details(appid)
+        if details:
+            print(f"\nGame details:")
+            print(f"Name: {details.get('name')}")
+            print(f"Description: {details.get('short_description', 'No description available.')}")
+            print(f"Price: {details.get('price_overview', {}).get('final_formatted', 'No price available.')}")
+            print(f"Header image: {details.get('header_image', 'No image available.')}")
+        else:
+            print("\nNo detailed information found for the given appid.")
 
     else:
         print("\nInvalid option.")

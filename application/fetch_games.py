@@ -1,4 +1,3 @@
-# application/fetch_games.py
 from api.steam_api_service import SteamAPIService
 from core.game import Game
 
@@ -21,3 +20,9 @@ class FetchGames:
     async def get_games_by_name(self, name):
         games = await self.execute()
         return [game for game in games if name.lower() in game.name.lower()]
+
+    async def get_game_details(self, appid):
+        details = await self.steam_api_service.fetch_game_details(appid)
+        if details:
+            return details
+        return None

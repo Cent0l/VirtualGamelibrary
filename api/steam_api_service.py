@@ -1,8 +1,8 @@
-
 import aiohttp
 
 class SteamAPIService:
     BASE_URL = "http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json"
+    DETAILS_URL = "https://store.steampowered.com/api/appdetails?appids={appid}"
 
     async def fetch_game_list(self):
         async with aiohttp.ClientSession() as session:
@@ -11,5 +11,17 @@ class SteamAPIService:
                     data = await response.json()
                     return data.get("applist", {}).get("apps", [])
                 else:
-                    print(f"file while downloading data: {response.status}")
+                    print(f"Error while downloading data: {response.status}")
                     return []
+
+    async def fetch_game_details(self, appid):
+        url = self.DETAILS_URL.format(appid=appid)
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as response:
+                if response.status == 200:
+                    data = await response.json()
+                    if data.get(str(appid), {}).get('success'):
+                        return data[str(appid)]['data']
+                else:
+                    print(f"Error while downloading game details: {response.status}")
+                    return None

@@ -1,5 +1,6 @@
 from api.steam_api_service import SteamAPIService
 from core.game import Game
+from difflib import SequenceMatcher
 
 
 class FetchGames:
@@ -32,3 +33,32 @@ class FetchGames:
         if news:
             return news
         return None
+
+
+    class FetchGames:
+
+
+        def _similarity(self, a, b):
+            """Prosta metryka podobieństwa dwóch ciągów."""
+            return SequenceMatcher(None, a.lower(), b.lower()).ratio()
+
+        async def get_recommendations(self, appid: int, limit: int = 5):
+            """
+            Zwraca listę rekomendowanych gier na podstawie podobieństwa nazwy.
+            """
+            games = await self.execute()
+            current_game = await self.get_game_by_appid(appid)
+            if not current_game:
+                return []
+
+            recommendations = sorted(
+                games,
+                key=lambda game: self._similarity(current_game.name, game.name),
+                reverse=True
+            )
+
+            # Pomijamy aktualnie wyszukiwaną grę
+            recommendations = [game for game in recommendations if game.appid != appid]
+
+            return recommendations[:limit]
+

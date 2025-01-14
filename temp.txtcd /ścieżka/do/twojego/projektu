@@ -1,0 +1,14 @@
+cd /ścieżka/do/twojego/projektu
+
+docker build -t steam-app .
+
+
+docker run -d -p 8000:8000 --name steam-app-container steam-app
+
+docker run -d -p 8000:8000 --name steam-app-container -v $(pwd)/library.json:/app/library.json steam-app
+
+docker ps
+
+docker stop steam-app-container
+
+docker rm steam-app-container

@@ -1,6 +1,6 @@
 # Steam Game Library API
 
-Aplikacja umożliwia użytkownikowi wyszukiwanie gier w API Steam, dodawanie gier do biblioteki, przeglądanie biblioteki oraz generowanie rekomendacji gier. Aplikacja została zbudowana w Pythonie z użyciem **FastAPI** i może być uruchamiana w kontenerze Docker.
+Aplikacja umożliwia użytkownikowi wyszukiwanie gier w API Steam, dodawanie gier do biblioteki, przeglądanie biblioteki oraz generowanie rekomendacji gier.
 
 ## **Funkcjonalności**
 
@@ -15,18 +15,4 @@ Aplikacja umożliwia użytkownikowi wyszukiwanie gier w API Steam, dodawanie gie
 - **Pobieranie szczegółowych informacji o grach**.
 - **Pobieranie wiadomości o grach** z API Steam.
 
-## **Wymagania**
 
-- Python 3.12+
-- Docker (opcjonalnie, jeśli chcesz używać kontenerów)
-- FastAPI
-- Uvicorn
-- Aiohttp
-
-## **Instalacja**
-
-1. **Sklonuj repozytorium:**
-
-   ```bash
-   git clone https://github.com/username/steam-library-api.git
-   cd steam-library-api

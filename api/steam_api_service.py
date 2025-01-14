@@ -28,13 +28,15 @@ class SteamAPIService:
                     print(f"Error while downloading game details: {response.status}")
                     return None
 
-    async def fetch_game_news(self, appid):
+    async def fetch_game_details(self, appid):
+        url = self.DETAILS_URL.format(appid=appid) + "&cc=us&l=en"
         async with aiohttp.ClientSession() as session:
-            url = self.NEWS_URL.format(appid=appid)
             async with session.get(url) as response:
                 if response.status == 200:
                     data = await response.json()
-                    return data.get("appnews", {}).get("newsitems", [])
+                    if data.get(str(appid), {}).get('success'):
+                        return data[str(appid)]['data']
                 else:
-                    print(f"Error fetching news: {response.status}")
-                    return []
+                    print(f"Error while downloading game details: {response.status}")
+                    return None
+

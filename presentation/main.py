@@ -36,6 +36,7 @@ async def main():
         print("6 - Add a custom game to your library")
         print("7 - Show your library")
         print("8 - Get game recommendations")
+        print("9 - Get news about a game by appid")
         print("0 - Exit")
 
         choice = input("Choose an option number: ")
@@ -72,6 +73,7 @@ async def main():
                 print(f"Name: {details.get('name')}")
                 print(f"Description: {details.get('detailed_description', 'No description available.')}")
                 print(f"Price: {details.get('price_overview', {}).get('final_formatted', 'No price available.')}")
+                print(f"Minimum requirements: {details.get('pc_requirements', {}).get('minimum', 'No requirements available.')}")
             else:
                 print("\nNo detailed information found for the given appid.")
 
@@ -112,6 +114,18 @@ async def main():
                     print(f"AppID: {game.appid}, Name: {game.name}")
             else:
                 print("\nNo recommendations found.")
+
+        elif choice == "9":
+            appid = int(input("Enter the game appid to get news: "))
+            news = await fetch_games_use_case.get_game_news(appid)
+            if news:
+                print(f"\nNews for game {appid}:")
+                for item in news[:5]:  # Show latest 5 news
+                    print(f"Title: {item.get('title', 'No title')}")
+                    print(f"Contents: {item.get('contents', 'No content')}")
+                    print("----------------------------")
+            else:
+                print("\nNo news found for the given appid.")
 
         elif choice == "0":
             print("\nExiting...")

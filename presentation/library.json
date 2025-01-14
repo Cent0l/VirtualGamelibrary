@@ -1,1 +1,12 @@
-[{"appid": 227300, "name": "Euro Truck Simulator 2"}]
+docker run -d -p 8000:8000 --name steam-app-container -v $(pwd)/library.json:/app/library.json steam-app
+
+[
+    {
+        "appid": 2379780,
+        "name": "Balatro"
+    },
+    {
+        "appid": 1000001,
+        "name": "Colin McReaDirt2"
+    }
+]

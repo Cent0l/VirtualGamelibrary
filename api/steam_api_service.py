@@ -1,5 +1,6 @@
 import aiohttp
 
+#all needed apis
 class SteamAPIService:
     BASE_URL = "http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json"
     DETAILS_URL = "https://store.steampowered.com/api/appdetails?appids={appid}"
@@ -14,6 +15,7 @@ class SteamAPIService:
                     print(f"Error while downloading data: {response.status}")
                     return []
 
+#details and news need separated apis
     async def fetch_game_details(self, appid):
         url = self.DETAILS_URL.format(appid=appid)
         async with aiohttp.ClientSession() as session:

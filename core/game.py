@@ -1,4 +1,3 @@
-#core/game.py
 class Game:
     def __init__(self, appid, name):
         self.appid = appid

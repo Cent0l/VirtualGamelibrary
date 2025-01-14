@@ -34,31 +34,29 @@ class FetchGames:
             return news
         return None
 
+    def _similarity(self, a, b):
+        return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
-    class FetchGames:
+    async def get_recommendations(self, appid: int, limit: int = 5):
+        games = await self.execute()
+        current_game = await self.get_game_by_appid(appid)
+        if not current_game:
+            return []
 
+        recommendations = sorted(
+            games,
+            key=lambda game: self._similarity(current_game.name, game.name),
+            reverse=True
+        )
 
-        def _similarity(self, a, b):
-            """Prosta metryka podobieństwa dwóch ciągów."""
-            return SequenceMatcher(None, a.lower(), b.lower()).ratio()
+        recommendations = [game for game in recommendations if game.appid != appid]
 
-        async def get_recommendations(self, appid: int, limit: int = 5):
-            """
-            Zwraca listę rekomendowanych gier na podstawie podobieństwa nazwy.
-            """
-            games = await self.execute()
-            current_game = await self.get_game_by_appid(appid)
-            if not current_game:
-                return []
+        return recommendations[:limit]
 
-            recommendations = sorted(
-                games,
-                key=lambda game: self._similarity(current_game.name, game.name),
-                reverse=True
-            )
+    async def add_custom_game_to_library(self, name: str, library: list):
 
-            # Pomijamy aktualnie wyszukiwaną grę
-            recommendations = [game for game in recommendations if game.appid != appid]
+        existing_appids = [game.appid for game in library]
+        new_appid = max(existing_appids, default=1000000) + 1
 
-            return recommendations[:limit]
-
+        custom_game = Game(appid=new_appid, name=name)
+        library.append(custom_game)

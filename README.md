@@ -25,7 +25,7 @@ Aplikacja umożliwia użytkownikowi wyszukiwanie gier w API Steam, dodawanie gie
 |---------|-------------------------------------|------|
 | `GET`   | `/games`                            | Pobranie listy wszystkich gier |
 | `GET`   | `/games/{appid}`                    | Wyszukiwanie gry po `appid` |
-| `GET`   | `/games/search?name=<nazwa>`        | Wyszukiwanie gier po nazwie |
+| `GET`   | `/game/search?name=<nazwa>`         | Wyszukiwanie gier po nazwie |
 | `GET`   | `/games/{appid}/details`            | Pobranie szczegółowych informacji o grze |
 | `GET`   | `/games/{appid}/news`               | Pobranie newsów o grze |
 | `GET`   | `/games/{appid}/recommendations`    | Rekomendacje podobnych gier |

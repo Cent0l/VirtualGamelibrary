@@ -1,13 +1,10 @@
 version: '3.8'
 
 services:
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+  steam_api:
+    build: .
     ports:
       - "8000:8000"
     volumes:
-      - ./library.json:/app/library.json
-    stdin_open: true
-    tty: true
+      - .:/app
+    restart: unless-stopped

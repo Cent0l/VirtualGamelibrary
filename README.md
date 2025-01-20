@@ -19,18 +19,25 @@ Aplikacja umożliwia użytkownikowi wyszukiwanie gier w API Steam, dodawanie gie
 
 ---
 
-## **Dostępne endpointy**
+## **Dostępne Endpointy**
+| Metoda  | Endpoint                           | Opis |
+|---------|------------------------------------|------|
+| **GET** | `/games`                          | Pobiera listę wszystkich dostępnych gier z API Steam. |
+| **GET** | `/games/{appid}`                   | Pobiera informacje o grze na podstawie `appid`. |
+| **GET** | `/game/search?name={nazwa}`        | Wyszukuje gry na podstawie nazwy lub jej części. |
+| **GET** | `/games/{appid}/details`           | Pobiera szczegółowe informacje o grze na podstawie `appid`. |
+| **GET** | `/games/{appid}/news`              | Pobiera newsy dla gry na podstawie `appid`. |
+| **GET** | `/games/{appid}/recommendations`   | Generuje rekomendacje gier na podstawie podobieństwa nazw. |
+| **POST** | `/library/adde/{appid}`           | Dodaje istniejącą grę do biblioteki użytkownika na podstawie `appid`. |
+| **POST** | `/library/addc/{name}`            | Dodaje własną (customową) grę do biblioteki użytkownika. |
+| **DELETE** | `/library/delete/{appid}`       | Usuwa grę z biblioteki na podstawie `appid`. |
+| **GET** | `/library`                         | Pobiera listę wszystkich gier w bibliotece użytkownika. |
 
-| Metoda  | Endpoint                            | Opis |
-|---------|-------------------------------------|------|
-| `GET`   | `/games`                            | Pobranie listy wszystkich gier |
-| `GET`   | `/games/{appid}`                    | Wyszukiwanie gry po `appid` |
-| `GET`   | `/game/search?name=<nazwa>`         | Wyszukiwanie gier po nazwie |
-| `GET`   | `/games/{appid}/details`            | Pobranie szczegółowych informacji o grze |
-| `GET`   | `/games/{appid}/news`               | Pobranie newsów o grze |
-| `GET`   | `/games/{appid}/recommendations`    | Rekomendacje podobnych gier |
-| `POST`  | `/library/existing`                 | Dodanie istniejącej gry do biblioteki |
-| `POST`  | `/library/custom`                   | Dodanie własnej gry do biblioteki |
-| `DELETE`| `/library/{appid}`                  | Usunięcie gry z biblioteki |
-| `GET`   | `/library`                          | Pobranie listy gier w bibliotece |
+---
+
+##  **Przykłady zapytań**
+###  **Wyszukiwanie gier**
+- **Szukaj gry po nazwie (np. "Counter-Strike")**
+  ```http
+  GET http://127.0.0.1:8000/game/search?name=Counter-Strike
 

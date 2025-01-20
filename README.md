@@ -33,11 +33,3 @@ Aplikacja umożliwia użytkownikowi wyszukiwanie gier w API Steam, dodawanie gie
 | **DELETE** | `/library/delete/{appid}`       | Usuwa grę z biblioteki na podstawie `appid`. |
 | **GET** | `/library`                         | Pobiera listę wszystkich gier w bibliotece użytkownika. |
 
----
-
-##  **Przykłady zapytań**
-###  **Wyszukiwanie gier**
-- **Szukaj gry po nazwie (np. "Counter-Strike")**
-  ```http
-  GET http://127.0.0.1:8000/game/search?name=Counter-Strike
-

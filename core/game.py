@@ -1,3 +1,4 @@
+#core
 class Game:
     def __init__(self, appid, name):
         self.appid = appid

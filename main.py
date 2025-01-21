@@ -3,11 +3,9 @@ import json
 from application.fetch_games import FetchGames
 from api.steam_api_service import SteamAPIService
 
-# Plik do przechowywania biblioteki użytkownika
 library_file = "library.json"
 
 def load_library():
-    """Wczytuje bibliotekę z pliku JSON."""
     try:
         with open(library_file, "r") as file:
             return json.load(file)
@@ -15,7 +13,6 @@ def load_library():
         return []
 
 def save_library(library):
-    """Zapisuje bibliotekę do pliku JSON."""
     with open(library_file, "w") as file:
         json.dump(library, file, indent=4)
 

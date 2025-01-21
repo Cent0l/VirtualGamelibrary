@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from application.fetch_games import FetchGames
 from api.steam_api_service import SteamAPIService
-from core.game import Game
 from pydantic import BaseModel
 
 router = APIRouter()

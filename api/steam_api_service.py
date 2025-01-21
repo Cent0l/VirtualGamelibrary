@@ -1,5 +1,5 @@
 import aiohttp
-
+#domain
 class SteamAPIService:
     BASE_URL = "http://api.steampowered.com/ISteamApps/GetAppList/v0002/?format=json"
     DETAILS_URL = "https://store.steampowered.com/api/appdetails?appids={appid}&cc=us&l=en"

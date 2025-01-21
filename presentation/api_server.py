@@ -3,12 +3,16 @@ from pydantic import BaseModel
 from api.steam_api_service import SteamAPIService
 from application.fetch_games import FetchGames
 from core.game import Game
+from routers import games, library
 import json
 
 app = FastAPI()
 
 steam_api_service = SteamAPIService()
 fetch_games_use_case = FetchGames(steam_api_service)
+
+app.include_router(games.router, prefix="/games", tags=["Games"])
+app.include_router(library.router, prefix="/library", tags=["Library"])
 
 
 def load_library():
